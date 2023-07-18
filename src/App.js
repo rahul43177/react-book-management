@@ -15,17 +15,21 @@ function App() {
     },[])
     
 
-    const editBookById = (id , newTitle) =>{
-        const updateBooks = books.map((book)=>{
-            if(book.id === id) {
-                return {...book , title : newTitle}
-            }
-            return book
+    const editBookById = async (id , newTitle) =>{
+        const response = await axios.put(`http://localhost:3001/books/${id}` , {
+            title : newTitle
         })
-        setBooks(updateBooks)
+
+        const updatedBooks = books.map((book)=>{
+            if(book.id === id) {
+                return {...book , ...response.data}
+            }
+        })
+        setBooks(updatedBooks)
     }
 
-    const deleteBookById = (id) =>{
+    const deleteBookById = async (id) =>{
+         await axios.delete(`http://localhost:3000/book/${id}`)
         const updatedBooks = books.filter((book)=>{
             return (book.id !== id)
         })
