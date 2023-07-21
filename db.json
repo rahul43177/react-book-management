@@ -1,24 +1,8 @@
 {
   "books": [
     {
-      "title": "rahul new book hoye hoye",
-      "id": 2
-    },
-    {
-      "title": "harry potter",
-      "id": 3
-    },
-    {
-      "title": "oye papa ji ",
-      "id": 4
-    },
-    {
-      "title": "Dark Tower",
-      "id": 5
-    },
-    {
-      "title": "Hari Puttar",
-      "id": 6
+      "title": "Rahul Mishra",
+      "id": 1
     }
   ]
 }
