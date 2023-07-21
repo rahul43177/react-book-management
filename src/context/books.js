@@ -1,15 +1,14 @@
-import { create } from "json-server";
-import { createContext ,useState } from "react";
-import axios from 'react'
+import axios from 'axios'
+import { createContext , useState } from "react";
 const BooksContext = createContext()
 
-function Provider({children }) {
+function Provider({children}) {
     const [books , setBooks] = useState([]) 
 
-    const fetchBooks = async function() {
+    const fetchBooks = async ()=> {
         const response = await axios.get('http://localhost:3001/books')
         setBooks(response.data)
-    } 
+    } //done till here
     const editBookById = async (id , newTitle) =>{
         const response = await axios.put(`http://localhost:3001/books/${id}` , {
             title : newTitle
@@ -19,12 +18,13 @@ function Provider({children }) {
             if(book.id === id) {
                 return {...book , ...response.data}
             }
+            return book
         })
         setBooks(updatedBooks)
     }
 
     const deleteBookById = async (id) =>{
-         await axios.delete(`http://localhost:3000/book/${id}`)
+         await axios.delete(`http://localhost:3001/books/${id}`)
         const updatedBooks = books.filter((book)=>{
             return (book.id !== id)
         })
@@ -39,15 +39,14 @@ function Provider({children }) {
             title : title
         })
         const updatedBooks = [...books , response.data]
-
         setBooks(updatedBooks)
     }
     const valueToShare = {
-        books:books , 
-        deleteBookById : deleteBookById ,
-        editBookById : editBookById ,
-        createBook : createBook ,
-        fetchBooks : fetchBooks
+        books , 
+        deleteBookById, 
+        editBookById,
+        createBook , 
+        fetchBooks
     }
 
 
@@ -55,5 +54,5 @@ function Provider({children }) {
         {children}
     </BooksContext.Provider>
 }
-export {Provider }
+export {Provider}
 export default BooksContext;
